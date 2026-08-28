@@ -1,0 +1,704 @@
+/* ============================================= 
+   1. RESET & BASE SETTINGS
+   ============================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth; /* any jump-to-section link glides smoothly instead of snapping instantly */
+}
+
+:root {
+  --color-bg: #fbfaff;        /* soft off-white main background */
+  --color-bg-light: #f0edff;  /* light lavender for cards, nav, inputs */
+  --color-text: #201f36;      /* deep navy for readable text */
+  --color-muted: #6b6980;     /* muted grey-purple for secondary text */
+  --color-accent: #6c63ff;    /* vibrant purple accent, kept from before */
+  --color-border: #e2ddfa;    /* soft border so light elements stay defined */
+  --font-main: 'Inter', system-ui, sans-serif;     /* body text — clean and highly readable */
+  --font-heading: 'Poppins', system-ui, sans-serif; /* headings — bold and modern */
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  opacity: 0; /* page starts invisible... */
+  transition: opacity 0.3s ease; /* ...then fades in/out smoothly via JS toggling classes below */
+  position: relative;
+  overflow-x: hidden; /* prevents the background blobs below from causing sideways scrolling */
+}
+
+/* All headings and the logo use the bolder, more distinctive heading font,
+   so they visually stand apart from regular paragraph text */
+h1, h2, h3, .logo {
+  font-family: var(--font-heading);
+}
+
+/* script.js adds this once the page has finished loading, fading it IN */
+body.loaded {
+  opacity: 1;
+}
+
+/* Soft floating color blobs, fixed in place behind everything.
+   These are what the "glass" panels below will actually blur — without
+   something colorful behind it, a glass effect just looks like plain grey. */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -1; /* keeps these blobs behind all real content */
+  opacity: 0.5;
+}
+
+body::before {
+  width: 420px;
+  height: 420px;
+  background: #6c63ff; /* purple blob */
+  top: -100px;
+  left: -100px;
+  animation: driftOne 18s ease-in-out infinite; /* slow, gentle wander */
+}
+
+body::after {
+  width: 380px;
+  height: 380px;
+  background: #ff9ecf; /* soft pink blob for contrast */
+  bottom: -80px;
+  right: -80px;
+  animation: driftTwo 22s ease-in-out infinite; /* different duration = they never move identically */
+}
+
+/* These two keyframe sets move each blob in a big, slow, gentle loop */
+@keyframes driftOne {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(60px, 40px); }
+}
+
+@keyframes driftTwo {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-50px, -30px); }
+}
+
+/* script.js adds this right before navigating to another page, fading it OUT */
+body.fade-out {
+  opacity: 0;
+}
+
+/* =============================================
+   2. HEADER / NAVIGATION
+   ============================================= */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  /* rgba = a color with transparency (last number = opacity, 0 to 1) */
+  background-color: rgba(255, 255, 255, 0.45);
+  /* backdrop-filter blurs whatever is BEHIND this element — this is the actual "glass" effect */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px); /* Safari needs this prefixed version too */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5); /* faint edge highlight, like real glass */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(108, 99, 255, 0.1);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-accent);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  position: relative;   /* needed so the underline below can be positioned against this link */
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+/* This invisible line grows from the center outward on hover, instead of a plain underline */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background-color: var(--color-accent);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--color-accent);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+  left: 0%;
+}
+
+/* The hamburger button — hidden by default on desktop screens */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* =============================================
+   3. HERO SECTION
+   ============================================= */
+
+.hero {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: row;         /* text and image sit side-by-side */
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  padding: 20px 40px;
+}
+
+.hero-text {
+  text-align: left;
+  max-width: 450px;
+}
+
+/* Each direct child of hero-text (h1, p, button) starts invisible+shifted down.
+   They only animate once body gets the "loaded" class (added by script.js
+   after the page finishes loading), and each has a different animation-delay
+   so they appear one after another instead of all at once. */
+.hero-text > * {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+body.loaded .hero-text > *:nth-child(1) {
+  animation: fadeUp 0.7s ease forwards;
+  animation-delay: 0.1s;
+}
+
+body.loaded .hero-text > *:nth-child(2) {
+  animation: fadeUp 0.7s ease forwards;
+  animation-delay: 0.3s;
+}
+
+body.loaded .hero-text > *:nth-child(3) {
+  animation: fadeUp 0.7s ease forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.hero-text p {
+  font-size: 1.2rem;
+  color: var(--color-muted);
+  margin-bottom: 30px;
+}
+
+.hero-image img {
+  width: 280px;
+  height: 280px;
+  object-fit: cover;      /* crops the photo neatly to fill the circle, no stretching */
+  border-radius: 50%;     /* makes the image a perfect circle */
+  border: 4px solid var(--color-accent);
+  animation: heroFloat 4s ease-in-out infinite; /* same idea as the skill icons — a slow, gentle bob */
+}
+
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.btn {
+  position: relative;
+  overflow: hidden;    /* keeps the shine sweep below contained inside the button's rounded shape */
+  background-color: rgba(108, 99, 255, 0.75); /* semi-transparent accent color */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4); /* light edge = glass rim highlight */
+  color: white;
+  padding: 12px 28px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  /* cubic-bezier gives a springy "pop" feel instead of a flat linear movement */
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color 0.2s ease,
+              box-shadow 0.25s ease;
+}
+
+/* A diagonal streak of light that sits just off to the left, hidden, until hover */
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform: skewX(-20deg); /* angles the streak diagonally instead of straight up-down */
+  transition: left 0.6s ease;
+}
+
+/* On hover, the streak slides all the way across from left to right */
+.btn:hover::before {
+  left: 125%;
+}
+
+.btn:hover {
+  background-color: rgba(87, 79, 214, 0.9); /* becomes more solid/opaque on hover */
+  transform: translateY(-4px) scale(1.06); /* lifts AND slightly grows = "pop" */
+  box-shadow: 0 8px 24px rgba(108, 99, 255, 0.45); /* glow that grows with the pop */
+}
+
+.btn:active {
+  transform: translateY(-1px) scale(0.97); /* quick press-down feel on click */
+}
+
+/* =============================================
+   3b. ABOUT PAGE CONTENT
+   ============================================= */
+
+.about-section {
+  max-width: 700px;
+  margin: 0 auto;      /* centers the block horizontally */
+  padding: 60px 20px;
+}
+
+.about-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.about-section h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 70px;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-accent), #ff9ecf, var(--color-accent));
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+.about-section h2 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  color: var(--color-accent);
+}
+
+.about-section p {
+  color: var(--color-muted);
+  margin-bottom: 10px;
+}
+
+.skills-list {
+  list-style: none;
+}
+
+.skills-list li {
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(108, 99, 255, 0.08);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* Slight lift on the whole card when hovering anywhere on it */
+.skills-list li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(108, 99, 255, 0.18);
+}
+
+.skill-icon {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;    /* rounded square instead of a full circle */
+  overflow: hidden;      /* crops the photo neatly into the square shape */
+  background-color: rgba(108, 99, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  color: var(--color-accent);
+  margin-bottom: 14px;
+  box-shadow: 0 4px 10px rgba(108, 99, 255, 0.15);
+  /* This makes the icon gently float up and down forever, using the
+     keyframes defined below — "infinite" means it never stops repeating */
+  animation: iconFloat 3s ease-in-out infinite;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
+}
+
+.skill-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* fills the circle without stretching/distorting the photo */
+}
+
+/* When you hover the CARD, pause the floating animation and let the icon
+   spin/grow instead — otherwise both effects would fight over the same property */
+.skills-list li:hover .skill-icon {
+  animation-play-state: paused;
+  transform: scale(1.15) rotate(12deg);
+  background-color: rgba(108, 99, 255, 0.3);
+}
+
+/* Defines the up-and-down floating motion used above */
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.skills-list li strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+  color: var(--color-text);
+}
+
+.skills-list li p {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  margin-bottom: 0; /* overrides the general paragraph spacing since this is the last thing in the card */
+}
+
+/* =============================================
+   3c. CONTACT PAGE
+   ============================================= */
+
+.contact-section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.contact-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.contact-section h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 70px;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-accent), #ff9ecf, var(--color-accent));
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+.contact-section > p {
+  color: var(--color-muted);
+  margin-bottom: 30px;
+}
+
+.inline-link {
+  color: var(--color-accent);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+label {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+input,
+textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 1rem;
+  resize: vertical; /* only allow resizing textarea up/down, not sideways */
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid var(--color-accent); /* highlight when user clicks into a field */
+}
+
+form .btn {
+  border: none;
+  cursor: pointer;
+  margin-top: 15px;
+  align-self: flex-start; /* button doesn't stretch full width */
+}
+
+#form-status {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+/* =============================================
+   3d. FEATURED ARTICLE SECTION
+   ============================================= */
+
+.article-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.article-section h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+  color: var(--color-text);
+  position: relative;
+  padding-bottom: 16px;
+}
+
+/* A small glowing bar under the heading, with a gradient that continuously
+   shifts position — creates a subtle shimmering light effect */
+.article-section h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-accent), #ff9ecf, var(--color-accent));
+  background-size: 200% 100%; /* wider than the bar itself, so it can slide */
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+.article-content {
+  display: block;      /* no longer a side-by-side row — just stacked content */
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 8px 24px rgba(108, 99, 255, 0.1);
+}
+
+/* Clearfix: without this, a floated image can "poke out" past the bottom
+   of its container because floated elements don't count toward height. */
+.article-content::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.article-image {
+  float: right;              /* text from surrounding paragraphs wraps around this */
+  width: 260px;
+  max-width: 45%;            /* keeps it from taking over on narrower screens */
+  margin: 6px 0 20px 25px;   /* extra space on the left so text doesn't touch it */
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.article-content p {
+  color: var(--color-muted);
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+
+.article-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* =============================================
+   4. FOOTER
+   ============================================= */
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 15px;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: var(--color-text);
+  box-shadow: 0 4px 12px rgba(108, 99, 255, 0.12);
+  transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+
+.social-links a:hover {
+  background-color: var(--color-accent);
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+/* =============================================
+   3e. SCROLL-REVEAL ANIMATION
+   Any element with class="reveal" starts hidden/shifted down.
+   script.js adds class="in-view" once it scrolls into sight,
+   which triggers the transition below.
+   ============================================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger skill cards one after another instead of all at once */
+.skills-list li.reveal:nth-child(1) { transition-delay: 0s; }
+.skills-list li.reveal:nth-child(2) { transition-delay: 0.15s; }
+.skills-list li.reveal:nth-child(3) { transition-delay: 0.3s; }
+
+/* =============================================
+   5. RESPONSIVE / MOBILE STYLES
+   ============================================= */
+
+@media (max-width: 600px) {
+  header {
+    padding: 20px;
+  }
+
+  /* Show the hamburger button on small screens */
+  .hamburger {
+    display: block;
+  }
+
+  /* Hide the menu by default on mobile, turn it into a dropdown */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    width: 200px;
+    padding: 20px;
+    gap: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(108, 99, 255, 0.15);
+  }
+
+  /* This class gets added/removed by script.js when the hamburger is tapped */
+  .nav-links.active {
+    display: flex;
+  }
+
+  .hero {
+    flex-direction: column;   /* stack image above text on small screens */
+    text-align: center;
+    padding: 40px 20px;
+    gap: 30px;
+  }
+
+  .hero-text {
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+  }
+
+  .hero-image img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .article-content {
+    padding: 20px;
+  }
+
+  .article-image {
+    float: none;       /* no more floating/wrapping on small screens */
+    width: 100%;
+    max-width: 100%;
+    margin: 15px 0;
+  }
+}
