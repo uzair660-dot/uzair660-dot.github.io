@@ -1,5 +1,6 @@
 // =============================================
 // INTERACTIVE BODY DIAGRAM — deep-detail content
+// Matches the systems visible in the anatomy photo
 // Self-contained — doesn't touch script.js
 // =============================================
 
@@ -11,6 +12,14 @@ const bodySystemData = {
     function: "Controls thought, memory, movement, and sensation, and regulates automatic functions like breathing and heart rate through electrical and chemical signals.",
     conditions: "Common conditions include stroke, seizures, migraines, and traumatic brain injury.",
     assessment: "Nurses check level of consciousness (e.g. Glasgow Coma Scale), pupil response, and motor/sensory function on both sides of the body."
+  },
+  thyroid: {
+    label: "Endocrine",
+    title: "Thyroid Gland",
+    anatomy: "A small, butterfly-shaped gland at the front of the neck, just below the larynx (voice box).",
+    function: "Produces hormones (T3 and T4) that control metabolism, energy use, and growth throughout the body.",
+    conditions: "Common conditions include hypothyroidism, hyperthyroidism, and goiter.",
+    assessment: "Nurses monitor for weight changes, heart rate, energy levels, and neck swelling, and track TSH lab values."
   },
   lungs: {
     label: "Respiratory",
@@ -27,6 +36,22 @@ const bodySystemData = {
     function: "Pumps oxygen-rich blood to the body and returns oxygen-poor blood to the lungs, keeping every organ supplied.",
     conditions: "Common conditions include hypertension, heart failure, arrhythmias, and coronary artery disease.",
     assessment: "Nurses assess heart rate and rhythm, blood pressure, capillary refill, and watch for edema or chest pain."
+  },
+  vessels: {
+    label: "Circulatory",
+    title: "Blood Vessels",
+    anatomy: "Arteries carry oxygen-rich blood away from the heart under high pressure; veins carry oxygen-poor blood back to the heart under lower pressure, often visible as blue lines under the skin.",
+    function: "Together, arteries, veins, and capillaries form the highway that delivers oxygen and nutrients to every cell and carries waste away.",
+    conditions: "Common conditions include varicose veins, deep vein thrombosis (DVT), and peripheral artery disease.",
+    assessment: "Nurses check pulses, capillary refill, skin color/temperature of the limbs, and watch for swelling or signs of clotting."
+  },
+  lymphatic: {
+    label: "Immune",
+    title: "Lymphatic System",
+    anatomy: "A network of vessels and small bean-shaped lymph nodes (clustered in areas like the armpit and neck) that carry a clear fluid called lymph.",
+    function: "Helps fight infection by filtering harmful substances out of the lymph fluid and supporting white blood cell production.",
+    conditions: "Common conditions include swollen lymph nodes from infection, lymphedema, and lymphoma.",
+    assessment: "Nurses check for swollen or tender lymph nodes, and monitor for signs of infection or unexplained swelling in the limbs."
   },
   liver: {
     label: "Hepatic",
@@ -52,14 +77,6 @@ const bodySystemData = {
     conditions: "Common conditions include pancreatitis and diabetes (types 1 and 2).",
     assessment: "Nurses monitor blood glucose levels, watch for abdominal pain radiating to the back, and track amylase/lipase labs."
   },
-  intestines: {
-    label: "Digestive",
-    title: "Intestines",
-    anatomy: "A long, coiled tube — the small intestine absorbs nutrients, the large intestine (colon) absorbs water and forms stool.",
-    function: "Completes digestion, absorbs nutrients and water into the bloodstream, and eliminates waste.",
-    conditions: "Common conditions include Crohn's disease, ulcerative colitis, and bowel obstruction.",
-    assessment: "Nurses track bowel sounds, frequency and character of stool, abdominal distension, and nutrition/hydration status."
-  },
   kidneys: {
     label: "Renal",
     title: "Kidneys",
@@ -67,14 +84,6 @@ const bodySystemData = {
     function: "Filter waste and excess fluid from the blood, balance electrolytes, and help regulate blood pressure.",
     conditions: "Common conditions include kidney stones, chronic kidney disease, and acute kidney injury.",
     assessment: "Nurses track fluid intake/output, creatinine and BUN labs, and watch for swelling (edema) or changes in urine output."
-  },
-  bladder: {
-    label: "Urinary",
-    title: "Bladder",
-    anatomy: "A muscular, expandable sac in the pelvis that stores urine before it leaves the body.",
-    function: "Stretches to hold urine produced by the kidneys, then contracts to release it during urination.",
-    conditions: "Common conditions include urinary tract infections (UTIs) and urinary retention or incontinence.",
-    assessment: "Nurses monitor urine output, color, and frequency, and watch for pain or urgency."
   },
   spine: {
     label: "Skeletal / Neurology",
@@ -84,29 +93,13 @@ const bodySystemData = {
     conditions: "Common conditions include herniated discs, scoliosis, and spinal cord injury.",
     assessment: "Nurses assess back pain, mobility, and — after injury — sensation and movement below the site of concern."
   },
-  muscles: {
-    label: "Musculoskeletal",
-    title: "Muscles & Mobility",
-    anatomy: "Bundles of fibers attached to bones by tendons, working in pairs to create movement.",
-    function: "Contract and relax to produce movement, maintain posture, and generate body heat.",
-    conditions: "Common concerns include muscle strain, atrophy from prolonged bed rest, and myopathies.",
-    assessment: "Nurses assess muscle strength (often graded 0-5), range of motion, and help prevent complications from immobility."
-  },
-  skeleton: {
-    label: "Skeletal",
-    title: "Bones & Skeletal System",
-    anatomy: "206 bones in the adult body, connected by joints and stabilized by ligaments.",
-    function: "Provides structure and protection for organs, stores calcium and minerals, and produces blood cells in the bone marrow.",
-    conditions: "Common conditions include fractures, osteoporosis, and arthritis.",
-    assessment: "Nurses complete fall-risk assessments, monitor for signs of fracture, and support safe mobility."
-  },
-  skin: {
-    label: "Integumentary",
-    title: "Skin",
-    anatomy: "The body's largest organ, made of three layers: epidermis (outer), dermis (middle), and subcutaneous tissue (innermost).",
-    function: "Acts as a protective barrier against infection, regulates temperature, and provides sensation.",
-    conditions: "Common concerns include pressure injuries (bedsores), wounds, and dermatitis.",
-    assessment: "Nurses perform regular skin assessments, especially for patients with limited mobility, checking for redness, breakdown, or wounds."
+  intestines: {
+    label: "Digestive",
+    title: "Intestines",
+    anatomy: "A long, coiled tube — the small intestine absorbs nutrients, the large intestine (colon) absorbs water and forms stool.",
+    function: "Completes digestion, absorbs nutrients and water into the bloodstream, and eliminates waste.",
+    conditions: "Common conditions include Crohn's disease, ulcerative colitis, and bowel obstruction.",
+    assessment: "Nurses track bowel sounds, frequency and character of stool, abdominal distension, and nutrition/hydration status."
   }
 };
 
@@ -121,7 +114,6 @@ document.addEventListener("DOMContentLoaded", function () {
       showSystemInfo(spot);
     });
 
-    // Keyboard accessibility — Enter/Space activates it like a click
     spot.addEventListener("keydown", function (e) {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
@@ -138,7 +130,10 @@ document.addEventListener("DOMContentLoaded", function () {
     hotspots.forEach(function (s) {
       s.classList.remove("active");
     });
-    spot.classList.add("active");
+    // Highlight every dot for this same system (e.g. both lung dots, both kidney dots)
+    document.querySelectorAll('.hotspot[data-system="' + key + '"]').forEach(function (s) {
+      s.classList.add("active");
+    });
 
     panel.innerHTML =
       '<div class="info-content">' +

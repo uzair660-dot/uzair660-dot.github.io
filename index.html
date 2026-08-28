@@ -102,112 +102,25 @@
 
       <div class="body-diagram-wrap">
         <div class="body-svg-card">
-          <svg id="body-diagram" viewBox="0 0 240 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Interactive anatomical diagram of the human body">
+          <div class="body-photo-wrap">
+            <img src="assets/anatomy-diagram.jpg" alt="Anatomical illustration of the human body with organs visible" class="body-photo">
 
-  <!-- ===== BODY SILHOUETTE ===== -->
-  <ellipse class="body-outline" cx="120" cy="44" rx="30" ry="34"/>
-  <rect class="body-outline" x="107" y="76" width="26" height="20" rx="4"/>
-  <path class="body-outline" d="M78,96 Q120,86 162,96 L172,235 Q120,252 68,235 Z"/>
-  <path class="body-outline" d="M78,100 Q52,112 44,195 Q42,235 50,268 L66,263 Q60,215 64,190 Q68,145 84,112 Z"/>
-  <path class="body-outline" d="M162,100 Q188,112 196,195 Q198,235 190,268 L174,263 Q180,215 176,190 Q172,145 156,112 Z"/>
-  <path class="body-outline" d="M74,240 Q68,335 62,425 Q60,468 66,505 L92,505 Q90,462 94,425 Q98,335 104,242 Z"/>
-  <path class="body-outline" d="M166,240 Q172,335 178,425 Q180,468 174,505 L148,505 Q150,462 146,425 Q142,335 136,242 Z"/>
-
-  <!-- ===== BRAIN (inside head) ===== -->
-  <g class="hotspot pulse" data-system="brain" tabindex="0" role="button" aria-label="Brain and nervous system">
-    <path d="M97,22 C100,14 112,10 120,12 C128,9 140,13 143,21 C150,23 152,33 148,39 C151,46 146,54 138,55 C136,60 128,62 122,59 C116,63 107,61 105,55 C97,55 92,47 95,40 C90,34 91,25 97,22 Z"
-          fill="#c9a3ff" stroke="#8b6cf0" stroke-width="1.5" fill-opacity="0.85"/>
-    <!-- gyri texture lines -->
-    <path d="M102,24 Q108,20 114,24 M118,20 Q125,17 131,21 M100,34 Q108,30 116,34 M122,32 Q130,29 138,33 M104,44 Q112,41 120,45 M124,43 Q133,40 141,44"
-          stroke="#8b6cf0" stroke-width="1" fill="none" opacity="0.6"/>
-  </g>
-
-  <!-- ===== LUNGS (pair, lobed) ===== -->
-  <g class="hotspot pulse" data-system="lungs" tabindex="0" role="button" aria-label="Lungs and respiratory system">
-    <path d="M96,108 C82,108 72,120 70,140 C68,160 72,178 82,186 C90,192 98,186 99,175 L100,120 C100,112 99,108 96,108 Z"
-          fill="#f2a8c4" stroke="#e0688f" stroke-width="1.5" fill-opacity="0.85"/>
-    <path d="M144,108 C158,108 168,120 170,140 C172,160 168,178 158,186 C150,192 142,186 141,175 L140,120 C140,112 141,108 144,108 Z"
-          fill="#f2a8c4" stroke="#e0688f" stroke-width="1.5" fill-opacity="0.85"/>
-  </g>
-
-  <!-- ===== HEART (between lungs) ===== -->
-  <g class="hotspot pulse" data-system="heart" tabindex="0" role="button" aria-label="Heart and circulatory system">
-    <path d="M120,130 C120,122 113,116 106,117 C99,118 95,125 97,133 C99,143 110,153 120,161 C130,153 141,143 143,133 C145,125 141,118 134,117 C127,116 120,122 120,130 Z"
-          fill="#e0405f" stroke="#b32c46" stroke-width="1.5" fill-opacity="0.9"/>
-  </g>
-
-  <!-- ===== LIVER ===== -->
-  <g class="hotspot pulse" data-system="liver" tabindex="0" role="button" aria-label="Liver">
-    <path d="M138,182 C155,180 168,186 170,196 C172,205 164,212 150,213 C138,214 128,210 127,201 C126,192 130,184 138,182 Z"
-          fill="#9c4a3c" stroke="#7a3529" stroke-width="1.5" fill-opacity="0.88"/>
-  </g>
-
-  <!-- ===== STOMACH ===== -->
-  <g class="hotspot pulse" data-system="stomach" tabindex="0" role="button" aria-label="Stomach and digestive system">
-    <path d="M108,188 C118,186 126,192 126,201 C126,210 120,218 111,219 C103,220 96,215 96,207 C96,198 100,190 108,188 Z"
-          fill="#e8a15c" stroke="#c07d3a" stroke-width="1.5" fill-opacity="0.88"/>
-  </g>
-
-  <!-- ===== PANCREAS ===== -->
-  <g class="hotspot pulse" data-system="pancreas" tabindex="0" role="button" aria-label="Pancreas">
-    <path d="M112,221 C120,219 132,220 138,224 C140,226 138,229 133,229 C124,229 115,228 111,226 C109,224 110,222 112,221 Z"
-          fill="#e8d15c" stroke="#c0a83a" stroke-width="1.5" fill-opacity="0.88"/>
-  </g>
-
-  <!-- ===== INTESTINES (coiled) ===== -->
-  <g class="hotspot pulse" data-system="intestines" tabindex="0" role="button" aria-label="Intestines and lower digestive tract">
-    <path d="M95,232 Q120,224 145,232 Q150,240 140,244 Q120,238 100,244 Q90,240 95,232 Z
-             M98,246 Q120,240 142,246 Q147,253 137,257 Q120,252 103,257 Q93,253 98,246 Z
-             M101,259 Q120,254 139,259 Q144,265 135,268 Q120,264 105,268 Q96,265 101,259 Z"
-          fill="#d99a6c" stroke="#a86f43" stroke-width="1.3" fill-opacity="0.85"/>
-  </g>
-
-  <!-- ===== KIDNEYS (pair, bean-shaped) ===== -->
-  <g class="hotspot pulse" data-system="kidneys" tabindex="0" role="button" aria-label="Kidneys and urinary system">
-    <path d="M82,200 C76,200 71,206 72,214 C73,222 79,227 85,225 C91,223 93,215 91,208 C90,203 86,200 82,200 Z"
-          fill="#7a2e3a" stroke="#5c1f28" stroke-width="1.5" fill-opacity="0.88"/>
-    <path d="M158,200 C164,200 169,206 168,214 C167,222 161,227 155,225 C149,223 147,215 149,208 C150,203 154,200 158,200 Z"
-          fill="#7a2e3a" stroke="#5c1f28" stroke-width="1.5" fill-opacity="0.88"/>
-  </g>
-
-  <!-- ===== BLADDER ===== -->
-  <g class="hotspot pulse" data-system="bladder" tabindex="0" role="button" aria-label="Bladder and urinary storage">
-    <path d="M110,272 C120,270 130,272 132,280 C134,288 126,294 120,294 C114,294 106,288 108,280 C108,276 109,273 110,272 Z"
-          fill="#e8c95c" stroke="#c0a13a" stroke-width="1.5" fill-opacity="0.85"/>
-  </g>
-
-  <!-- ===== SPINE (center line of vertebrae) ===== -->
-  <g class="hotspot pulse" data-system="spine" tabindex="0" role="button" aria-label="Spine and skeletal support">
-    <rect x="117" y="98" width="6" height="8" rx="2" fill="#e8e4f5" stroke="#8b6cf0" stroke-width="1"/>
-    <rect x="117" y="110" width="6" height="8" rx="2" fill="#e8e4f5" stroke="#8b6cf0" stroke-width="1"/>
-    <rect x="117" y="122" width="6" height="8" rx="2" fill="#e8e4f5" stroke="#8b6cf0" stroke-width="1"/>
-    <rect x="117" y="134" width="6" height="8" rx="2" fill="#e8e4f5" stroke="#8b6cf0" stroke-width="1"/>
-    <rect x="117" y="146" width="6" height="8" rx="2" fill="#e8e4f5" stroke="#8b6cf0" stroke-width="1"/>
-    <rect x="117" y="158" width="6" height="8" rx="2" fill="#e8e4f5" stroke="#8b6cf0" stroke-width="1"/>
-    <rect x="117" y="170" width="6" height="8" rx="2" fill="#e8e4f5" stroke="#8b6cf0" stroke-width="1"/>
-    <rect x="117" y="182" width="6" height="8" rx="2" fill="#e8e4f5" stroke="#8b6cf0" stroke-width="1"/>
-  </g>
-
-  <!-- ===== MUSCLES (bicep highlight) ===== -->
-  <g class="hotspot pulse" data-system="muscles" tabindex="0" role="button" aria-label="Muscles and mobility">
-    <path d="M50,150 C46,158 45,168 48,178 C50,184 58,184 60,177 C62,168 61,158 57,150 C55,146 52,146 50,150 Z"
-          fill="#d1495b" stroke="#a8324a" stroke-width="1.3" fill-opacity="0.8"/>
-  </g>
-
-  <!-- ===== SKELETON (femur bone icon on thigh) ===== -->
-  <g class="hotspot pulse" data-system="skeleton" tabindex="0" role="button" aria-label="Bones and skeletal system">
-    <path d="M84,300 C80,298 76,300 76,304 C76,307 79,309 82,308 L88,395 C85,396 83,399 84,403 C85,407 90,408 93,405 L96,309 C99,309 101,306 100,303 C99,300 96,298 93,300 L84,300 Z"
-          fill="#f2efe4" stroke="#b8ad8f" stroke-width="1.3" fill-opacity="0.85"/>
-  </g>
-
-  <!-- ===== SKIN (patch on forearm, representing integumentary system) ===== -->
-  <g class="hotspot pulse" data-system="skin" tabindex="0" role="button" aria-label="Skin and integumentary system">
-    <rect x="176" y="220" width="16" height="16" rx="3" fill="#f0c9a0" stroke="#c99b68" stroke-width="1.3" fill-opacity="0.85"/>
-    <path d="M178,224 Q184,222 190,224 M178,228 Q184,226 190,228 M178,232 Q184,230 190,232"
-          stroke="#c99b68" stroke-width="0.8" fill="none" opacity="0.7"/>
-  </g>
-
-</svg>
+            <button class="hotspot pulse" style="left:51%; top:9.5%;" data-system="brain" aria-label="Brain and nervous system"></button>
+            <button class="hotspot pulse" style="left:50%; top:34%;" data-system="thyroid" aria-label="Thyroid gland"></button>
+            <button class="hotspot pulse" style="left:52%; top:52%;" data-system="heart" aria-label="Heart and circulatory system"></button>
+            <button class="hotspot pulse" style="left:40%; top:49%;" data-system="lungs" aria-label="Lungs and respiratory system"></button>
+            <button class="hotspot pulse" style="left:61%; top:49%;" data-system="lungs" aria-label="Lungs and respiratory system"></button>
+            <button class="hotspot pulse" style="left:76%; top:56%;" data-system="lymphatic" aria-label="Lymphatic system"></button>
+            <button class="hotspot pulse" style="left:39%; top:71%;" data-system="liver" aria-label="Liver"></button>
+            <button class="hotspot pulse" style="left:61%; top:71%;" data-system="stomach" aria-label="Stomach and digestive system"></button>
+            <button class="hotspot pulse" style="left:50%; top:73%;" data-system="pancreas" aria-label="Pancreas"></button>
+            <button class="hotspot pulse" style="left:37%; top:78%;" data-system="kidneys" aria-label="Kidneys and urinary system"></button>
+            <button class="hotspot pulse" style="left:66%; top:76%;" data-system="kidneys" aria-label="Kidneys and urinary system"></button>
+            <button class="hotspot pulse" style="left:51%; top:83%;" data-system="spine" aria-label="Spine and skeletal support"></button>
+            <button class="hotspot pulse" style="left:42%; top:90%;" data-system="intestines" aria-label="Intestines and digestive tract"></button>
+            <button class="hotspot pulse" style="left:9%; top:80%;" data-system="vessels" aria-label="Blood vessels"></button>
+          </div>
+          <p class="photo-credit">Illustration by Geralt / Pixabay</p>
         </div>
 
         <div class="body-info-panel">

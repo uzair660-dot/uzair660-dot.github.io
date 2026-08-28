@@ -64,41 +64,71 @@
 }
 
 .body-outline {
-  fill: rgba(108, 99, 255, 0.08);
-  stroke: var(--color-accent);
-  stroke-width: 2;
+  fill: #f5d0aa;
+  stroke: #2b2b2b;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
 }
 
-.hotspot {
+/* Photo-based diagram wrapper */
+.body-photo-wrap {
+  position: relative;
+  width: 260px;
+  max-width: 100%;
+}
+
+.body-photo {
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+}
+
+.photo-credit {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--color-muted);
+  opacity: 0.7;
+  margin-top: 8px;
+}
+
+/* Hotspots are now small round buttons positioned in % over the photo */
+button.hotspot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(224, 64, 95, 0.55);
+  border: 2px solid #ffffff;
+  padding: 0;
   cursor: pointer;
-  transition: transform 0.25s ease, filter 0.25s ease;
-  transform-origin: center;
-  transform-box: fill-box;
+  transition: transform 0.25s ease, filter 0.25s ease, background 0.25s ease;
 }
 
-.hotspot:hover,
-.hotspot:focus {
-  transform: scale(1.12);
-  filter: brightness(1.15) drop-shadow(0 0 6px rgba(108, 99, 255, 0.6));
+button.hotspot:hover,
+button.hotspot:focus {
+  transform: translate(-50%, -50%) scale(1.25);
+  filter: brightness(1.15) drop-shadow(0 0 6px rgba(108, 99, 255, 0.7));
   outline: none;
 }
 
-.hotspot.active {
-  filter: brightness(1.25) drop-shadow(0 0 10px rgba(255, 158, 207, 0.8));
+button.hotspot.active {
+  background: rgba(255, 158, 207, 0.9);
+  filter: drop-shadow(0 0 10px rgba(255, 158, 207, 0.8));
 }
 
 /* Gentle pulse so it's obvious the diagram is interactive */
 @keyframes hotspotPulse {
-  0%, 100% { filter: brightness(1); }
-  50% { filter: brightness(1.2); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(224, 64, 95, 0.5); }
+  50% { box-shadow: 0 0 0 6px rgba(224, 64, 95, 0); }
 }
 
-.hotspot.pulse {
-  animation: hotspotPulse 2.4s ease-in-out infinite;
+button.hotspot.pulse {
+  animation: hotspotPulse 2.2s ease-in-out infinite;
 }
 
-.hotspot:hover.pulse,
-.hotspot.active.pulse {
+button.hotspot:hover.pulse,
+button.hotspot.active.pulse {
   animation: none;
 }
 
