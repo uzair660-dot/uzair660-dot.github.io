@@ -1,0 +1,166 @@
+/* =============================================
+   INTERACTIVE BODY DIAGRAM SECTION
+   Self-contained styles — doesn't touch existing rules in style.css
+   ============================================= */
+
+.body-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.body-section h2 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 10px;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.body-section h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--color-accent), #ff9ecf, var(--color-accent));
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+.body-section > p.body-intro {
+  text-align: center;
+  color: var(--color-muted);
+  margin-bottom: 40px;
+}
+
+.body-diagram-wrap {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* The SVG figure itself, in a glass card */
+.body-svg-card {
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(108, 99, 255, 0.1);
+  flex-shrink: 0;
+}
+
+#body-diagram {
+  width: 240px;
+  height: auto;
+  display: block;
+}
+
+.body-outline {
+  fill: rgba(108, 99, 255, 0.08);
+  stroke: var(--color-accent);
+  stroke-width: 2;
+}
+
+.hotspot {
+  cursor: pointer;
+  transition: transform 0.25s ease, filter 0.25s ease;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.hotspot:hover,
+.hotspot:focus {
+  transform: scale(1.12);
+  filter: brightness(1.15) drop-shadow(0 0 6px rgba(108, 99, 255, 0.6));
+  outline: none;
+}
+
+.hotspot.active {
+  filter: brightness(1.25) drop-shadow(0 0 10px rgba(255, 158, 207, 0.8));
+}
+
+/* Gentle pulse so it's obvious the diagram is interactive */
+@keyframes hotspotPulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.2); }
+}
+
+.hotspot.pulse {
+  animation: hotspotPulse 2.4s ease-in-out infinite;
+}
+
+.hotspot:hover.pulse,
+.hotspot.active.pulse {
+  animation: none;
+}
+
+/* Info panel shown to the right (or below, on mobile) */
+.body-info-panel {
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 8px 24px rgba(108, 99, 255, 0.1);
+  min-width: 260px;
+  max-width: 380px;
+  min-height: 220px;
+}
+
+.body-info-panel h3 {
+  font-family: var(--font-heading);
+  color: var(--color-accent);
+  font-size: 1.3rem;
+  margin-bottom: 6px;
+}
+
+.body-info-panel .system-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background-color: var(--color-accent);
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+}
+
+.body-info-panel p {
+  color: var(--color-muted);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.body-info-panel .placeholder {
+  color: var(--color-muted);
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* Fade transition each time content swaps in */
+.body-info-panel .info-content {
+  animation: fadeUp 0.4s ease;
+}
+
+@media (max-width: 600px) {
+  .body-diagram-wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .body-info-panel {
+    max-width: 100%;
+    width: 100%;
+  }
+}
