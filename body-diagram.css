@@ -23,12 +23,10 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 70px;
-  height: 4px;
-  border-radius: 4px;
-  background: linear-gradient(90deg, var(--color-accent), #4f83c4, var(--color-accent));
-  background-size: 200% 100%;
-  animation: shimmer 3s linear infinite;
+  width: 56px;
+  height: 3px;
+  border-radius: 2px;
+  background-color: var(--color-accent-light);
 }
 
 .body-section > p.body-intro {
@@ -47,13 +45,13 @@
 
 /* The SVG figure itself, in a glass card */
 .body-svg-card {
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: var(--color-bg-panel);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   padding: 20px;
-  box-shadow: 0 8px 24px rgba(27, 58, 99, 0.1);
+  box-shadow: var(--shadow-sm);
   flex-shrink: 0;
 }
 
@@ -134,13 +132,13 @@ button.hotspot.active.pulse {
 
 /* Info panel shown to the right (or below, on mobile) */
 .body-info-panel {
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: var(--color-bg-panel);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   padding: 30px;
-  box-shadow: 0 8px 24px rgba(27, 58, 99, 0.1);
+  box-shadow: var(--shadow-sm);
   min-width: 260px;
   max-width: 380px;
   min-height: 220px;
