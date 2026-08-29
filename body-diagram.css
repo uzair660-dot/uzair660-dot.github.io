@@ -26,7 +26,7 @@
   width: 70px;
   height: 4px;
   border-radius: 4px;
-  background: linear-gradient(90deg, var(--color-accent), #ff9ecf, var(--color-accent));
+  background: linear-gradient(90deg, var(--color-accent), #4f83c4, var(--color-accent));
   background-size: 200% 100%;
   animation: shimmer 3s linear infinite;
 }
@@ -53,7 +53,7 @@
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 8px 24px rgba(108, 99, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(27, 58, 99, 0.1);
   flex-shrink: 0;
 }
 
@@ -98,7 +98,7 @@ button.hotspot {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: rgba(224, 64, 95, 0.55);
+  background: rgba(27, 58, 99, 0.6);
   border: 2px solid #ffffff;
   padding: 0;
   cursor: pointer;
@@ -108,19 +108,19 @@ button.hotspot {
 button.hotspot:hover,
 button.hotspot:focus {
   transform: translate(-50%, -50%) scale(1.25);
-  filter: brightness(1.15) drop-shadow(0 0 6px rgba(108, 99, 255, 0.7));
+  filter: brightness(1.15) drop-shadow(0 0 6px rgba(27, 58, 99, 0.7));
   outline: none;
 }
 
 button.hotspot.active {
-  background: rgba(255, 158, 207, 0.9);
-  filter: drop-shadow(0 0 10px rgba(255, 158, 207, 0.8));
+  background: rgba(79, 131, 196, 0.9);
+  filter: drop-shadow(0 0 10px rgba(79, 131, 196, 0.8));
 }
 
 /* Gentle pulse so it's obvious the diagram is interactive */
 @keyframes hotspotPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(224, 64, 95, 0.5); }
-  50% { box-shadow: 0 0 0 6px rgba(224, 64, 95, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(27, 58, 99, 0.45); }
+  50% { box-shadow: 0 0 0 6px rgba(27, 58, 99, 0); }
 }
 
 button.hotspot.pulse {
@@ -140,7 +140,7 @@ button.hotspot.active.pulse {
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 16px;
   padding: 30px;
-  box-shadow: 0 8px 24px rgba(108, 99, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(27, 58, 99, 0.1);
   min-width: 260px;
   max-width: 380px;
   min-height: 220px;
